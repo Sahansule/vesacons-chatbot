@@ -1,0 +1,12 @@
+name: cv_chatbot
+version: 1.0.0
+executables:
+  - name: vesa-chatbot
+    version: 1.0.0
+    inputs:
+      - prompt
+prompt_templates:
+  - name: cv_template
+    version: 1.0.0
+  - name: vesacons_info
+    version: 1.0.0

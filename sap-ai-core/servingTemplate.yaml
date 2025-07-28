@@ -16,17 +16,17 @@ spec:
       - name: resourcePlan
         type: string
         default: infer.s
-        description: Küçük GPU planı
+        description: "Küçük GPU planı"
   template:
     apiVersion: serving.kserve.io/v1beta1
     metadata:
-      annotations: |
+      annotations:
         autoscaling.knative.dev/metric: concurrency
-        autoscaling.knative.dev/target: 1
-        autoscaling.knative.dev/targetBurstCapacity: 0
-      labels: |
+        autoscaling.knative.dev/target: "1"
+        autoscaling.knative.dev/targetBurstCapacity: "0"
+      labels:
         ai.sap.com/resourcePlan: "{{inputs.parameters.resourcePlan}}"
-    spec: |
+    spec:
       predictor:
         imagePullSecrets:
           - name: vesacons-docker-secret

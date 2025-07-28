@@ -4,7 +4,7 @@ metadata:
   name: cv_chatbot
   annotations:
     ai.sap.com/name: "Vesacons Chatbot"
-    ai.sap.com/description: "Vesa için GPT-4 tabanlı chatbot senaryosu"
+    ai.sap.com/description: "Vesacons için GPT-4 tabanlı chatbot senaryosu"
   labels:
     ai.sap.com/version: "1.0.0"
 spec:

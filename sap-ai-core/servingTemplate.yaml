@@ -1,24 +1,24 @@
 apiVersion: ai.sap.com/v1alpha1
 kind: ServingTemplate
 metadata:
-  name: vesacons-chatbot
+  name: cv_chatbot
   annotations:
-    scenarios.ai.sap.com/description: "Vesacons için özelleştirilmiş GPT-4 tabanlı chatbot"
-    scenarios.ai.sap.com/name: "vesacons-chatbot"
+    scenarios.ai.sap.com/description: "CV yorumlayan ve bilgi veren chatbot"
+    scenarios.ai.sap.com/name: "cv_chatbot"
     executables.ai.sap.com/description: "Özelleştirilmiş chatbot server"
-    executables.ai.sap.com/name: "vesacons-chatbot"
+    executables.ai.sap.com/name: "cv_chatbot"
   labels:
-    scenarios.ai.sap.com/id: "vesacons-chatbot"
+    scenarios.ai.sap.com/id: "cv_chatbot"
     ai.sap.com/version: "1.0.0"
 spec:
   inputs:
     parameters:
       - name: resourcePlan
-        type: "string"
-        default: "infer.s"
-        description: "Küçük GPU planı"
+        type: string
+        default: infer.s
+        description: Küçük GPU planı
   template:
-    apiVersion: "serving.kserve.io/v1beta1"
+    apiVersion: serving.kserve.io/v1beta1
     metadata:
       annotations: |
         autoscaling.knative.dev/metric: concurrency
@@ -29,20 +29,20 @@ spec:
     spec: |
       predictor:
         imagePullSecrets:
-        - name: vesacons-docker-secret
+          - name: vesacons-docker-secret
         minReplicas: 1
         maxReplicas: 1
         containers:
-        - name: kserve-container
-          image: docker.io/sahansule/vesacons-chatbot:latest
-          ports:
-            - containerPort: 8080
-              protocol: TCP
-          command: ["node"]
-          args: ["app.js"]
-          env:
-            - name: OPENAI_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: vesacons-openai-secret
-                  key: OPENAI_API_KEY
+          - name: kserve-container
+            image: docker.io/sahansule/vesacons-chatbot:latest
+            ports:
+              - containerPort: 8080
+                protocol: TCP
+            command: ["node"]
+            args: ["app.js"]
+            env:
+              - name: OPENAI_API_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: vesacons-openai-secret
+                    key: OPENAI_API_KEY

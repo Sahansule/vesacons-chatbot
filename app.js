@@ -1,26 +1,25 @@
-// app.js
-const express = require('express');
-const { Configuration, OpenAIApi } = require('openai');
 require('dotenv').config();
+const express = require('express');
+const { OpenAI } = require('openai');
 
 const app = express();
 app.use(express.json());
 
-const configuration = new Configuration({
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-const openai = new OpenAIApi(configuration);
 
 app.post('/chat', async (req, res) => {
   const { prompt } = req.body;
   try {
-    const response = await openai.createChatCompletion({
+    const response = await openai.chat.completions.create({
       model: 'gpt-4',
       messages: [{ role: 'user', content: prompt }],
     });
-    res.json({ response: response.data.choices[0].message.content });
+
+    res.json({ response: response.choices[0].message.content });
   } catch (error) {
-    console.error('OpenAI API çağrısında hata:', error.response ? error.response.data : error.message);
+    console.error('OpenAI API çağrısında hata:', error?.response?.data || error.message);
     res.status(500).send('OpenAI API çağrısında hata oluştu.');
   }
 });

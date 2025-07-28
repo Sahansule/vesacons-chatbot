@@ -1,24 +1,16 @@
-name: cv_chatbot
-version: 1.0.0
-executables:
-  - name: vesa-chatbot
-    version: 1.0.0
-    reference: docker.io/sahansule/vesacons-chatbot:latest
-    type: docker
-    inputs:
-      - resume_text
-      - user_question
-      - vesacons_info
-outputs:
-  - name: response
-    type: string
-steps:
-  - name: run
-    type: execution
-    executable: vesa-chatbot
-    input_mappings:
-      resume_text: resume_text
-      user_question: user_question
-      vesacons_info: vesacons_info
-    output_mappings:
-      response: response
+apiVersion: ai.sap.com/v1alpha1
+kind: Scenario
+metadata:
+  name: cv_chatbot
+  annotations:
+    ai.sap.com/name: "CV Chatbot Senaryosu"
+    ai.sap.com/description: "CV yorumlayan ve şirket bilgisi veren chatbot senaryosu"
+  labels:
+    ai.sap.com/version: "1.0.0"
+spec:
+  executables:
+    - name: vesacons-chatbot
+      version: "1.0.0"
+  templates:
+    - name: vesacons-chatbot
+      version: "1.0.0"

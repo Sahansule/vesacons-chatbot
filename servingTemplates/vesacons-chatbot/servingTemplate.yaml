@@ -1,0 +1,48 @@
+apiVersion: ai.sap.com/v1alpha1
+kind: ServingTemplate
+metadata:
+  name: vesacons-chatbot
+  annotations:
+    scenarios.ai.sap.com/description: "Vesacons için özelleştirilmiş GPT-4 tabanlı chatbot"
+    scenarios.ai.sap.com/name: "vesacons-chatbot"
+    executables.ai.sap.com/description: "Özelleştirilmiş chatbot server"
+    executables.ai.sap.com/name: "vesacons-chatbot"
+  labels:
+    scenarios.ai.sap.com/id: "vesacons-chatbot"
+    ai.sap.com/version: "1.0.0"
+spec:
+  inputs:
+    parameters:
+      - name: resourcePlan
+        type: "string"
+        default: "infer.s"
+        description: "Küçük GPU planı"
+  template:
+    apiVersion: "serving.kserve.io/v1beta1"
+    metadata:
+      annotations: |
+        autoscaling.knative.dev/metric: concurrency
+        autoscaling.knative.dev/target: 1
+        autoscaling.knative.dev/targetBurstCapacity: 0
+      labels: |
+        ai.sap.com/resourcePlan: "{{inputs.parameters.resourcePlan}}"
+    spec: |
+      predictor:
+        imagePullSecrets:
+        - name: vesacons-docker-secret
+        minReplicas: 1
+        maxReplicas: 1
+        containers:
+        - name: kserve-container
+          image: docker.io/sahansule/vesacons-chatbot:latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          command: ["node"]
+          args: ["app.js"]
+          env:
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: vesacons-openai-secret
+                  key: OPENAI_API_KEY

@@ -6,4 +6,4 @@ inputs:
   - name: prompt
     type: string
     description: Kullanıcıdan gelen istek (resume_text, user_question , vesacons_info)
-command: node app.js
+command: [node,app.js]

@@ -1,6 +1,9 @@
-require('dotenv').config();
+// app.js
 const express = require('express');
-const { OpenAI } = require('openai');
+const dotenv = require('dotenv');
+const OpenAI = require('openai'); // v5.x ile DOĞRU kullanım
+
+dotenv.config(); // .env dosyasını yükle
 
 const app = express();
 app.use(express.json());
@@ -11,6 +14,7 @@ const openai = new OpenAI({
 
 app.post('/chat', async (req, res) => {
   const { prompt } = req.body;
+
   try {
     const response = await openai.chat.completions.create({
       model: 'gpt-4',

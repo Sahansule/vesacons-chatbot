@@ -1,17 +1,9 @@
-apiVersion: ai.sap.com/v1alpha1
-kind: Executable
-metadata:
-  name: cv_chatbot
-  annotations:
-    ai.sap.com/name: "Vesacons Chatbot Executable"
-    ai.sap.com/description: "Vesacons için özelleştirilmiş GPT-4 tabanlı chatbot"
-  labels:
-    ai.sap.com/version: "1.0.0"
-spec:
-  type: docker
-  command: [node, app.js]
-  inputs:
-    parameters:
-      - name: prompt
-        type: string
-        description: "Kullanıcıdan gelen istek (örn: resume_text, user_question, vesacons_info)"
+name: cv_chatbot
+version: 1.0.0
+type: docker
+description: Vesacons için özelleştirilmiş GPT-4 tabanlı chatbot
+inputs:
+  - name: prompt
+    type: string
+    description: "Kullanıcıdan gelen istek (örn: resume_text, user_question, vesacons_info)"
+command: [node, app.js]

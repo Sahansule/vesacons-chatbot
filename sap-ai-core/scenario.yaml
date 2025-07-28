@@ -1,10 +1,10 @@
 apiVersion: ai.sap.com/v1alpha1
 kind: Scenario
 metadata:
-  name: cv_chatbot
+  name: vesacons-chatbot-scenario
   annotations:
-    ai.sap.com/name: "CV Chatbot Senaryosu"
-    ai.sap.com/description: "CV yorumlayan ve şirket bilgisi veren chatbot senaryosu"
+    ai.sap.com/name: "Vesacons Chatbot"
+    ai.sap.com/description: "Vesa için GPT-4 tabanlı chatbot senaryosu"
   labels:
     ai.sap.com/version: "1.0.0"
 spec:

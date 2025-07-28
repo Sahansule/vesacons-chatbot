@@ -9,8 +9,8 @@ metadata:
     ai.sap.com/version: "1.0.0"
 spec:
   executables:
-    - name: vesacons-chatbot
+    - name: cv_chatbot
       version: "1.0.0"
   templates:
-    - name: vesacons-chatbot
+    - name: cv_chatbot
       version: "1.0.0"
